@@ -5,3 +5,9 @@
 [submodule "depot_tools"]
 	path = depot_tools
 	url = https://github.com/rust-skia/depot_tools.git
+[submodule "vulkan/Vulkan-Headers"]
+	path = vulkan/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git
+[submodule "vulkan/volk"]
+	path = vulkan/volk
+	url = https://github.com/zeux/volk.git
