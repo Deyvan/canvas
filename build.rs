@@ -10,6 +10,8 @@ fn main() {
 
   println!("cargo:rerun-if-changed=skia-c/skia_c.cpp");
   println!("cargo:rerun-if-changed=skia-c/skia_c.hpp");
+  println!("cargo:rerun-if-changed=skia-c/gpu.cpp");
+  println!("cargo:rerun-if-changed=skia-c/gpu.hpp");
 
   let compile_target = env::var("TARGET").expect("TARGET");
   let compile_target_os = env::var("CARGO_CFG_TARGET_OS").expect("CARGO_CFG_TARGET_OS");
@@ -34,6 +36,8 @@ fn main() {
   let mut build = cc::Build::new();
 
   build.cpp(true).file("skia-c/skia_c.cpp");
+  build.cpp(true).file("skia-c/gpu.cpp");
+  build.cpp(true).file("vulkan/volk/volk.c");
 
   match compile_target.as_str() {
     "aarch64-unknown-linux-musl" => {
@@ -228,6 +232,8 @@ fn main() {
   build
     .include("./skia-c")
     .include(skia_path)
+    .include("./vulkan/Vulkan-Headers/include")
+    .include("./vulkan/volk")
     // https://github.com/rust-lang/rust/pull/93901#issuecomment-1119360260
     .cargo_metadata(false)
     .out_dir(&out_dir)

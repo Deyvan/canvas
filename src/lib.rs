@@ -45,6 +45,7 @@ pub mod picture_recorder;
 #[allow(dead_code)]
 mod sk;
 mod state;
+mod gpu;
 pub mod svg;
 
 const MIME_WEBP: &str = "image/webp";
@@ -64,6 +65,7 @@ const DEFAULT_WEBP_QUALITY: u8 = 80;
 fn init() {
   // pre init font regexp
   FONT_REGEXP.get_or_init(init_font_regexp);
+  unsafe {gpu::ffi::gpu_init_volk()};
 }
 
 #[napi(object)]
